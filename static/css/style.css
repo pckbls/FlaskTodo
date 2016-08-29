@@ -1,0 +1,5 @@
+.template { display: none; }
+#todo-list .left { float: left; }
+#todo-list .right { float: right; font-size: 1.5em; }
+#todo-list .right .glyphicon:hover { color: #337ab7; }
+#todo-list .checked .left * { text-decoration: line-through; }
