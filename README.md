@@ -9,7 +9,7 @@ Recently I've discovered the Flask web framework. I've created this simple Todo 
 
 # Screenshot
 
-![screenshot](https://github.com/pckbls/FlaskTodo/raw/work/screenshot.png)
+![screenshot](https://github.com/pckbls/FlaskTodo/raw/master/screenshot.png)
 
 # How to run
 
