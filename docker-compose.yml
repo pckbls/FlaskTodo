@@ -1,0 +1,21 @@
+version: '2'
+
+services:
+  app:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./sqlite.db:/usr/src/app/sqlite.db
+    environment:
+      - DEBUG=0
+
+  adminer:
+    image: nesrait/adminer-sqlite
+    ports:
+      - "5001:80"
+    volumes:
+      - ./sqlite.db:/data/sqlite.db
+    environment:
+      - DB_PATH=/data/sqlite.db
+
