@@ -5,16 +5,22 @@ from flask import Flask
 from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
 
-# flask
-app = Flask(__name__, static_folder='../static')
-app.config['ERROR_404_HELP'] = False
-app.config['BUNDLE_ERRORS'] = True
+app = None
+db = None
+api = None
 
-# flask-sqlalchemy
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///../sqlite.db'
-db = SQLAlchemy(app)
+class Config(object):
+    ERROR_404_HELP = False
+    BUNDLE_ERRORS = True
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///../sqlite.db'
 
-# flask-restful
-api = Api(app)
+def init(config_object = None):
+    global app, db, api
 
-import src.api
+    app = Flask(__name__, static_folder='../static')
+    app.config.from_object(config_object if config_object else Config)
+
+    db = SQLAlchemy(app)
+
+    api = Api(app)
+    import src.api
