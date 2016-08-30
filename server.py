@@ -2,20 +2,23 @@
 # -*- coding: utf-8 -*-
 
 import sys, os
+import src
 
 if __name__ == '__main__':
-    if len(sys.argv) == 2 and sys.argv[1] == 'create_db':
-        from src import db
-        from src.api.todo import TodoModel
-
-        db.create_all()
-        db.session.add(TodoModel('maurice zwo drei', 'bla bla bla'))
-        db.session.add(TodoModel('lustige tierchen', 'lol lol'))
-        db.session.commit()
+    if len(sys.argv) == 2:
+        if sys.argv[1] == 'create_db':
+            src.init()
+            src.db.create_all()
+            src.db.session.commit()
+        elif sys.argv[1] == 'tests':
+            import unittest
+            import tests
+            suite = unittest.TestLoader().loadTestsFromTestCase(tests.todo.FlaskTodoTestCase)
+            unittest.TextTestRunner(verbosity=2).run(suite)
     else:
-        from src import app
+        src.init()
 
         if os.environ.get('DEBUG') == 1:
-            app.run(debug=True)
+            src.app.run(debug=True)
         else:
-            app.run(debug=False, host='0.0.0.0')
+            src.app.run(debug=False, host='0.0.0.0')
